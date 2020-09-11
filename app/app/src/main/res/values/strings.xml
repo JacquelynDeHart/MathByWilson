@@ -10,4 +10,5 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="intro">"Math by Wilson"</string>
+    <string name="logo_desc">"Logo image for the Math by Wilson mobile app"</string>
 </resources>
