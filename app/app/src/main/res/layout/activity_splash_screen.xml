@@ -16,6 +16,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
+        android:contentDescription="@string/logo_desc"
         android:src="@drawable/mwlogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
