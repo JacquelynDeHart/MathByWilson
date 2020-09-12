@@ -2,6 +2,7 @@ package com.example.mathapp
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
 import android.media.Image
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -9,11 +10,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 
-class SplashScreen : AppCompatActivity() {
+class SplashScreen : AppCompatActivity(){
 
     lateinit var mHandler: Handler
     lateinit var mRunnable: Runnable
@@ -32,9 +35,6 @@ class SplashScreen : AppCompatActivity() {
         val image = findViewById<ImageView>(R.id.imageView)
         val text = findViewById<TextView>(R.id.textView)
 
-        image.animation.run { R.anim.top_animation }
-        text.animation.run { R.anim.bottom_animation }
-
         startLogin()
 
     }
@@ -44,10 +44,11 @@ class SplashScreen : AppCompatActivity() {
             finish()
         }
         mHandler = Handler()
-        mHandler.postDelayed(mRunnable, 3000)
+        mHandler.postDelayed(mRunnable, 4000)
     }
     override fun onStop() {
         super.onStop()
         mHandler.removeCallbacks(mRunnable)
     }
+
 }
