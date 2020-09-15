@@ -46,6 +46,25 @@
             android:hint="@string/username"
             android:inputType="number"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:autofillHints="@string/username"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/first_name"
+            android:inputType="textCapWords"
+            android:hint="@string/prompt_fName"
+            android:autofillHints="@string/prompt_fName"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/last_name"
+            android:inputType="textCapWords"
+            android:hint="@string/prompt_lName"
+            android:autofillHints="@string/prompt_lName"
+            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>
 
         <EditText
@@ -69,6 +88,25 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             />
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_horizontal"
+            >
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/student_Wilson"
+                android:layout_gravity="center_horizontal"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/student_notWilson"
+                android:layout_gravity="center_horizontal"
+                />
+        </RadioGroup>
 
         <Button
             android:layout_width="match_parent"
