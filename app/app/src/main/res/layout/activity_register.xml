@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:text="@string/intro"
         android:textSize="36sp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
     <TextView
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:text="@string/register_2"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
     <LinearLayout
@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
             >
             <RadioButton
                 android:layout_width="wrap_content"
@@ -112,12 +112,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/add_user"
-            android:background="#00000000"
+            android:background="#B3C8CD"
             android:text="@string/register_user"
-            style="?android:attr/borderlessButtonStyle"
+            android:layout_marginBottom="5dp"
             />
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/copyright"
+        android:textSize="10sp"
+            android:gravity="center_horizontal"/>
 
     </LinearLayout>
+
 
 
 </LinearLayout>
