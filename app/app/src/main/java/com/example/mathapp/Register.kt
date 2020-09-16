@@ -32,6 +32,7 @@ class Register : AppCompatActivity() {
         if(!a.equals(b)){
             Toast.makeText(this, "password not the same", Toast.LENGTH_SHORT).show()
             first_pass.requestFocus()
+            return
         }
         else{
             Toast.makeText(this,"Passwords Match", Toast.LENGTH_SHORT).show()
@@ -69,10 +70,18 @@ class Register : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(new_user.text.toString(), first_pass.text.toString())
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                    finish()
+                    val user = auth.currentUser
+
+                    user!!.sendEmailVerification()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
+                                startActivity(Intent(this, LoginActivity::class.java))
+                                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                                finish()
+                            }
+                        }
+
                 } else {
                     // If sign in fails, display a message to the user.
 
