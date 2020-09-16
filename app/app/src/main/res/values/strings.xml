@@ -11,8 +11,13 @@
     <string name="logo_desc">"Logo image for the Math by Wilson mobile app"</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="register">"New user? Register Here"</string>
-    <string name="username">"Username (InstitutionID)"</string>
+    <string name="username">"Email Address"</string>
     <string name="register_2">"Register Your Account"</string>
     <string name="password_check">"Re-enter Password"</string>
     <string name="register_user">"Register"</string>
+    <string name="prompt_fName">First Name</string>
+    <string name="prompt_lName">Last Name</string>
+    <string name="student_Wilson">"Prof. Wilson's Student"</string>
+    <string name="student_notWilson">Other Student</string>
+    <string name="copyright">"© Copyright of Jackal Industries - 2020"</string>
 </resources>
