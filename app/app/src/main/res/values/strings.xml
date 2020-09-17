@@ -20,4 +20,8 @@
     <string name="student_Wilson">"Prof. Wilson's Student"</string>
     <string name="student_notWilson">Other Student</string>
     <string name="copyright">"© Copyright of Jackal Industries - 2020"</string>
+
+    <!-- Video Strings -->
+    <string name="video_title">Example Video Title</string>
+    <string name="video_button">Video</string>
 </resources>
