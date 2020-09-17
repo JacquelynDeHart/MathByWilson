@@ -25,7 +25,7 @@ class VideoActivity : AppCompatActivity() {
         third_party_player_view.getPlayerUiController().showFullscreenButton(true)
         third_party_player_view.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
             override fun onReady(@NonNull youTubePlayer: YouTubePlayer) {
-                val videoId = "YE7VzlLtp-4"
+                val videoId = "54_XRjHhZzI"
                 youTubePlayer.cueVideo(videoId, 0f)
             }
         })
