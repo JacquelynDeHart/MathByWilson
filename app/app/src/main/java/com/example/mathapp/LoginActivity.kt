@@ -28,6 +28,9 @@ class LoginActivity : AppCompatActivity() {
 //            Toast.makeText(this, "Function coming soon" , Toast.LENGTH_SHORT).show()
             doLogin()
         }
+        forgot_pass.setOnClickListener {
+            Toast.makeText(this, "Function coming soon", Toast.LENGTH_SHORT).show()
+        }
     }
 
     public override fun onStart() {
