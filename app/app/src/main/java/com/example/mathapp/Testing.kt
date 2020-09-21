@@ -44,9 +44,10 @@ class Testing : AppCompatActivity() {
 //                val intent = Intent(this, SettingsMain::class.java)
 //                startActivity(intent)
 //                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-
+                Toast.makeText(this, "will take to settings for app later", Toast.LENGTH_SHORT).show()
             }
             R.id.action_logout ->{
+                FirebaseAuth.getInstance().signOut()
                 startActivity(Intent(this, LoginActivity::class.java))
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
