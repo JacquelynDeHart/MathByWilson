@@ -24,6 +24,7 @@
 
     <!-- Video Strings -->
     <string name="video_title">Example Video Title</string>
+
     <string name="video_button">Video</string>
 
     <!-- menu item strings-->
@@ -31,5 +32,11 @@
     <string name="action_about">About</string>
     <string name="action_logout">Log Out</string>
     <string name="action_email">Email Report</string>
+
+
+    <string name="video1_button">Youtube Video</string>
+    <string name="video2_button">URL Video</string>
+    <string name="loading_string">Loading...</string>
+    <string name="toast_message">Complete</string>
 
 </resources>
