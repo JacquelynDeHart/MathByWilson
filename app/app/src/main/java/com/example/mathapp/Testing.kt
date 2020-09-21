@@ -10,8 +10,14 @@ class Testing : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_testing)
 
-        video_button.setOnClickListener{
+        video1_button.setOnClickListener{
             val intent = Intent(this, VideoActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+
+        video2_button.setOnClickListener{
+            val intent = Intent(this, VideoUrl::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
