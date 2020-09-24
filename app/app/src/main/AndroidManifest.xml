@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mathapp">
+
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -10,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".CourseSelection"></activity>
         <activity android:name=".Testing" />
         <activity
             android:name=".Register"
@@ -19,14 +22,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".VideoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VideoUrl"
             android:screenOrientation="landscape" />
         <activity
-
-
-            android:name=".VideoUrl"
-            android:screenOrientation="landscape"></activity>
-        <activity
-
             android:name=".SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
