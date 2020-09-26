@@ -3,8 +3,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".Cal2Fragment"
+    android:layout_height="match_parent"
+    tools:context=".Cal1Fragment"
     android:fillViewport="true">
 
 
@@ -14,40 +14,151 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <ImageButton
-            android:id="@+id/img1"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/mw_logo" />
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/fun"
+            android:textColor="@color/colorPrimaryDark"
+            style="@style/TextAppearance.AppCompat.Large"/>
 
-        <ImageButton
-            android:id="@+id/img2"
+        <Button
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/mw_logo" />
+            android:layout_height="120dp"
+            android:id="@+id/fun_lim"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/fun_lim"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
 
-        <ImageButton
-            android:id="@+id/img3"
+        <Button
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/mw_logo" />
+            android:layout_height="120dp"
+            android:id="@+id/fun_graph"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/fun_graph"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
 
-        <ImageButton
-            android:id="@+id/img4"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/mw_logo" />
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/limits_fun"
+            android:textColor="@color/colorPrimaryDark"
+            style="@style/TextAppearance.AppCompat.Large"/>
 
-        <ImageButton
-            android:id="@+id/img5"
+        <Button
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/mw_logo" />
+            android:layout_height="120dp"
+            android:id="@+id/fin_2"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/finite_2"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/fin_1"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/finite_1"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/con_func"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/con_func"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/infinite"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/infinite"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/to_infin"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/to_infin"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/to_infin_in"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/to_infin_in"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/derivatives"
+            android:textColor="@color/colorPrimaryDark"
+            style="@style/TextAppearance.AppCompat.Large"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/derv_intro"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/derivatives_intro"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/derv_spec"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/derv_spec"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/derv_gen_1"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/derv_gen_1"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/derv_gen_2"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/derv_gen_2"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/derv_rev"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/derv_rev"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="55dp"/>
     </LinearLayout>
 
 
