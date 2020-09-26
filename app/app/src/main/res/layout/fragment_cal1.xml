@@ -3,8 +3,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".Cal2Fragment"
+    android:layout_height="match_parent"
+    tools:context=".Cal1Fragment"
     android:fillViewport="true">
 
 
@@ -14,40 +14,18 @@
         android:orientation="vertical"
         android:padding="30dp">
 
-        <ImageButton
-            android:id="@+id/img1"
+        <Button
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/mw_logo" />
+            android:layout_height="120dp"
+            android:id="@+id/eqs_lin"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/eqs_linear"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
 
-        <ImageButton
-            android:id="@+id/img2"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/mw_logo" />
-
-        <ImageButton
-            android:id="@+id/img3"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/mw_logo" />
-
-        <ImageButton
-            android:id="@+id/img4"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/mw_logo" />
-
-        <ImageButton
-            android:id="@+id/img5"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/mw_logo" />
+            android:layout_height="25dp"/>
     </LinearLayout>
 
 

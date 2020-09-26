@@ -43,7 +43,23 @@
     <string name="college_algebra">College Algebra</string>
     <string name="calc_1">Calculus 1</string>
     <string name="calc_2">Calculus 2</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- colAlg Fragment strings -->
+    <string name="eqs_linear">Equations - Linear</string>
+    <string name="com_numbers">Complex Numbers</string>
+    <string name="eqs_quad">Equations Quadratic</string>
+    <string name="app_quad">Applications - Quadratic</string>
+    <string name="eqs_quadIF">Equations - Quadratic in Form</string>
+    <string name="eqs_rational">Equations - Rational</string>
+    <string name="eqs_radical">Equations - Radical</string>
+    <string name="eqs_abs_val">Equations - Absolute Value</string>
+    <string name="ineqs">Inequalities - Overview</string>
+    <string name="ineqs_abs">Inequalities - Absolute Value</string>
+    <string name="rec_coor_sys">Rectangular Coordinate System</string>
+    <string name="circ">Circles</string>
+    <string name="fun_dom">FUNctions - Domain</string>
+    <string name="fun_ran">FUNctions - Range</string>
+
+
 
 </resources>
