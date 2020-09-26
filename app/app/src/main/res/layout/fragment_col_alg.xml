@@ -121,6 +121,14 @@
             android:textSize="18sp"
             style="?attr/materialButtonOutlinedStyle"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/fun"
+            android:textColor="@color/colorPrimaryDark"
+            style="@style/TextAppearance.AppCompat.Large"/>
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="120dp"
@@ -141,7 +149,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="25dp"/>
+            android:layout_height="55dp"/>
     </LinearLayout>
 
 </ScrollView>

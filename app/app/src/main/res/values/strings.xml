@@ -47,7 +47,7 @@
     <!-- colAlg Fragment strings -->
     <string name="eqs_linear">Equations - Linear</string>
     <string name="com_numbers">Complex Numbers</string>
-    <string name="eqs_quad">Equations Quadratic</string>
+    <string name="eqs_quad">Equations - Quadratic</string>
     <string name="app_quad">Applications - Quadratic</string>
     <string name="eqs_quadIF">Equations - Quadratic in Form</string>
     <string name="eqs_rational">Equations - Rational</string>
@@ -59,6 +59,24 @@
     <string name="circ">Circles</string>
     <string name="fun_dom">FUNctions - Domain</string>
     <string name="fun_ran">FUNctions - Range</string>
+    
+    <!-- cal1 fragment strings -->
+    <string name="fun_lim">FUNdamental Limit Question</string>
+    <string name="fun_graph">FUNdamental Limit Graphs</string>
+    <string name="finite_2">Finite - 2 Sided</string>
+    <string name="finite_1">Finite - 1 Sided</string>
+    <string name="con_func">Continuity of FUNctions</string>
+    <string name="infinite">"Infinite - 2 &amp; 1 Sided"</string>
+    <string name="to_infin">"At/Toward Infinity - Finite"</string>
+    <string name="to_infin_in">"At/Toward Infinity - Infinite"</string>
+    <string name="derivatives_intro">Derivatives - Introduction</string>
+    <string name="derv_spec">Derivatives - Specific Formulas</string>
+    <string name="derv_gen_1">"Derivatives - Generic Formulas (1)"</string>
+    <string name="derv_gen_2">"Derivatives - Generic Formulas (2)"</string>
+    <string name="derv_rev">Derivatives Review</string>
+    <string name="derivatives">Derivatives of FUNctions</string>
+    <string name="limits_fun">Limits of FUNctions</string>
+    <string name="fun">FUNctions</string>
 
 
 
