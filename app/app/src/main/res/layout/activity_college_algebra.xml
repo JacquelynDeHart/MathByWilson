@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Cal1Fragment"
+    tools:context=".CollegeAlgebra"
     android:fillViewport="true">
 
 
@@ -13,6 +12,114 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="30dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/eqs_lin"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/eqs_linear"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/com_num"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/com_numbers"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/eqs_quad"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/eqs_quad"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/app_quad"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/app_quad"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/eqs_quad_inform"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/eqs_quadIF"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/eqs_rat"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/eqs_rational"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/eqs_rad"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/eqs_radical"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/eqs_abs"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/eqs_abs_val"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/ineq_over"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/ineqs"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/ineq_abs"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/ineqs_abs"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/rec_coor"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/rec_coor_sys"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:id="@+id/circles"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/circ"
+            android:textSize="18sp"
+            style="?attr/materialButtonOutlinedStyle"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -25,141 +132,24 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:id="@+id/fun_lim"
+            android:id="@+id/fun_dom"
             android:textColor="@color/colorPrimaryDark"
-            android:text="@string/fun_lim"
+            android:text="@string/fun_dom"
             android:textSize="18sp"
             style="?attr/materialButtonOutlinedStyle"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:id="@+id/fun_graph"
+            android:id="@+id/fun_ran"
             android:textColor="@color/colorPrimaryDark"
-            android:text="@string/fun_graph"
+            android:text="@string/fun_ran"
             android:textSize="18sp"
             style="?attr/materialButtonOutlinedStyle"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="@string/limits_fun"
-            android:textColor="@color/colorPrimaryDark"
-            style="@style/TextAppearance.AppCompat.Large"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/fin_2"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/finite_2"
-            android:textSize="18sp"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/fin_1"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/finite_1"
-            android:textSize="18sp"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/con_func"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/con_func"
-            android:textSize="18sp"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/infinite"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/infinite"
-            android:textSize="18sp"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/to_infin"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/to_infin"
-            android:textSize="18sp"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/to_infin_in"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/to_infin_in"
-            android:textSize="18sp"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="@string/derivatives"
-            android:textColor="@color/colorPrimaryDark"
-            style="@style/TextAppearance.AppCompat.Large"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/derv_intro"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/derivatives_intro"
-            android:textSize="18sp"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/derv_spec"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/derv_spec"
-            android:textSize="18sp"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/derv_gen_1"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/derv_gen_1"
-            android:textSize="18sp"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/derv_gen_2"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/derv_gen_2"
-            android:textSize="18sp"
-            style="?attr/materialButtonOutlinedStyle"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:id="@+id/derv_rev"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/derv_rev"
-            android:textSize="18sp"
-            style="?attr/materialButtonOutlinedStyle"/>
-
 
         <View
             android:layout_width="match_parent"
             android:layout_height="55dp"/>
     </LinearLayout>
-
 
 </ScrollView>

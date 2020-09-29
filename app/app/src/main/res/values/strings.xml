@@ -59,7 +59,7 @@
     <string name="circ">Circles</string>
     <string name="fun_dom">FUNctions - Domain</string>
     <string name="fun_ran">FUNctions - Range</string>
-    
+
     <!-- cal1 fragment strings -->
     <string name="fun_lim">FUNdamental Limit Question</string>
     <string name="fun_graph">FUNdamental Limit Graphs</string>
@@ -78,6 +78,9 @@
     <string name="limits_fun">Limits of FUNctions</string>
     <string name="fun">FUNctions</string>
 
+
+    <!-- selection strings -->
+    <string name="pick_course">Select a Course:</string>
 
 
 </resources>
