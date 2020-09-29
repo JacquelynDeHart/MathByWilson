@@ -12,8 +12,9 @@ import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 
 class VideoUrl: AppCompatActivity() {
-    private val video_link = "http://www.mathbywilson.com/wp-content/uploads/2020/08/C1-FUN_Dom.mp4"
-
+    private var video_link = ""
+    private var url_code = -1
+    private var activity_num = -1
     lateinit var VideoView_URL: VideoView
     lateinit var loading_text: TextView
 
@@ -24,6 +25,11 @@ class VideoUrl: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_url)
+
+        url_code = intent.getIntExtra("urlCode", 0)
+        activity_num = intent.getIntExtra("activity", 0)
+
+        setVideoUrlCode(url_code, activity_num)
 
         VideoView_URL = findViewById(R.id.videoview_url)
         loading_text = findViewById(R.id.loading_textview)
@@ -36,6 +42,49 @@ class VideoUrl: AppCompatActivity() {
        val controller = MediaController(this)
         controller.setMediaPlayer(VideoView_URL)
         VideoView_URL.setMediaController(controller)
+    }
+    /*
+    method for dynamically setting url for video_link
+     */
+    private fun setVideoUrlCode(urlCode: Int, activity_num: Int) {
+
+        when(activity_num){
+            1 -> when(url_code){
+                1 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Equ_Linear.mp4"
+                2 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Complex_Numb.mp4"
+                3 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Equ_Quad.mp4"
+                4 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/Applications_Quadratic.mp4"
+                5 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Eq_QuadInForm.mp4"
+                6 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Eq_Rational.mp4"
+                7 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Equ_Radical.mp4"
+                8 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Equ_Abs_Value.mp4"
+                9 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Inequalities.mp4"
+                10 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Inequalities_Abs_Value.mp4"
+                11 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Rect_Coord_Sys.mp4"
+                12 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Circles.mp4"
+                13 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/FUN_Domain.mp4"
+                14 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-FUN_Range.mp4"
+            }
+            2 -> when(url_code){
+                1 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/C1-FUN_Lim_Quest.mp4"
+                2 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/C1-FUN_Limit_Graphs.mp4"
+                3 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/C1_Lim_Fin_2sided.mp4"
+                4 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/C2-Finite-1-sided-Limits.mp4"
+                5 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/C1-Continuity.mp4"
+                6 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Infinite-2-1-sided-Limits.mp4"
+                7 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Finite_Limits_at_Infinity.mp4"
+                8 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Infinite_Limits_at_Infinity.mp4"
+                9 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Intro.mp4"
+                10 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/Der_Specific.mp4"
+                11 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Generic_01.mp4"
+                12 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Generic_02.mp4"
+                13 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Intro_02.mp4"
+            }
+            3 -> when(url_code){
+                1 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/06/zoom_Position_PLUS.mp4"
+            }
+        }
+
     }
 
     override fun onStart() {

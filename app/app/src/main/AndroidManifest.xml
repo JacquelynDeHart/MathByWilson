@@ -13,8 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
-        <activity android:name=".CourseSelection"/>
+        <activity android:name=".CollegeAlgebra"></activity>
+        <activity android:name=".Calculus2" />
+        <activity android:name=".Calculus1" />
+        <activity android:name=".CourseSelection" />
         <activity android:name=".Testing" />
         <activity
             android:name=".Register"
