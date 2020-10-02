@@ -63,6 +63,9 @@ class CourseSelection : AppCompatActivity() {
             R.id.action_email ->{
                 Toast.makeText(this, "send email to professor. function coming soon", Toast.LENGTH_SHORT).show()
             }
+            R.id.action_exit -> {
+                finishAffinity()
+            }
         }
         return super.onOptionsItemSelected(item)
 
