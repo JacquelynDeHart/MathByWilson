@@ -4,20 +4,25 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 
 class Register : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
         auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().getReference("Users")
+
+
 
         add_user.setOnClickListener {
             //push stuff to the firebase database after validating input
@@ -66,6 +71,8 @@ class Register : AppCompatActivity() {
             return
         }
         passCheck(first_pass.text.toString(), second_pass.text.toString())
+        val rbtnId: Int = radioGroup.checkedRadioButtonId
+        var prof: Int = rbtnAssign(rbtnId)
 
         auth.createUserWithEmailAndPassword(new_user.text.toString(), first_pass.text.toString())
             .addOnCompleteListener(this) { task ->
@@ -81,6 +88,7 @@ class Register : AppCompatActivity() {
                                 finish()
                             }
                         }
+                    addToDatabase(new_user.text.toString(), first_name.text.toString(), last_name.text.toString(), prof)
 
                 } else {
                     // If sign in fails, display a message to the user.
@@ -89,6 +97,25 @@ class Register : AppCompatActivity() {
                         Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun rbtnAssign(rbtnId: Int): Int {
+        var id: Int = 0
+        when(rbtnId){
+            rbtn_wilson.id ->  id =1;
+            rbtn_not_wilson.id -> id =2;
+        }
+        return id
+
+    }
+
+    private fun addToDatabase(email: String, fName: String, lName: String, prof: Int) {
+        val user = User(email, fName, lName, prof)
+
+        val ref: String? = database.push().key
+        database.child(ref.toString()).setValue(user).addOnCompleteListener{
+            Toast.makeText(applicationContext, "User saved to database successfully", Toast.LENGTH_LONG).show()
+        }
     }
 
 
