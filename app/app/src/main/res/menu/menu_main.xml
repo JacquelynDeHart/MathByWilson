@@ -10,7 +10,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
-        android:title="About"
+        android:title="@string/action_about"
         android:orderInCategory="0"
         app:showAsAction="never"/>
     <item

@@ -1,11 +1,10 @@
 package com.example.mathapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.util.Patterns
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_login.*
@@ -43,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUI(currentUser: FirebaseUser?){
         if(currentUser != null){
             if(currentUser.isEmailVerified){
-                startActivity(Intent(this, Testing::class.java))
+                startActivity(Intent(this, CourseSelection::class.java))
             }else{
                 // If sign in fails, display a message to the user.
                 Toast.makeText(baseContext, "Please verify your email.",
