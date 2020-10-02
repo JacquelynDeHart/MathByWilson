@@ -23,6 +23,7 @@ class Register : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().getReference("Users")
 
 
+
         add_user.setOnClickListener {
             //push stuff to the firebase database after validating input
             checkUserInput()
@@ -70,6 +71,8 @@ class Register : AppCompatActivity() {
             return
         }
         passCheck(first_pass.text.toString(), second_pass.text.toString())
+        val rbtnId: Int = radioGroup.checkedRadioButtonId
+        var prof: Int = rbtnAssign(rbtnId)
 
         auth.createUserWithEmailAndPassword(new_user.text.toString(), first_pass.text.toString())
             .addOnCompleteListener(this) { task ->
@@ -85,7 +88,7 @@ class Register : AppCompatActivity() {
                                 finish()
                             }
                         }
-                    addToDatabase(new_user.text.toString(), first_name.text.toString(), last_name.text.toString())
+                    addToDatabase(new_user.text.toString(), first_name.text.toString(), last_name.text.toString(), prof)
 
                 } else {
                     // If sign in fails, display a message to the user.
@@ -96,8 +99,18 @@ class Register : AppCompatActivity() {
             }
     }
 
-    private fun addToDatabase(email: String, fName: String, lName: String) {
-        val user = User(email, fName, lName)
+    private fun rbtnAssign(rbtnId: Int): Int {
+        var id: Int = 0
+        when(rbtnId){
+            rbtn_wilson.id ->  id =1;
+            rbtn_not_wilson.id -> id =2;
+        }
+        return id
+
+    }
+
+    private fun addToDatabase(email: String, fName: String, lName: String, prof: Int) {
+        val user = User(email, fName, lName, prof)
 
         val ref: String? = database.push().key
         database.child(ref.toString()).setValue(user).addOnCompleteListener{
