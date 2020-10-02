@@ -94,18 +94,20 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             >
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/student_Wilson"
-                android:layout_gravity="center_horizontal"/>
 
             <RadioButton
+                android:id="@+id/rbtn_wilson"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/student_notWilson"
                 android:layout_gravity="center_horizontal"
-                />
+                android:text="@string/student_Wilson" />
+
+            <RadioButton
+                android:id="@+id/rbtn_not_wilson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/student_notWilson" />
         </RadioGroup>
 
         <Button
