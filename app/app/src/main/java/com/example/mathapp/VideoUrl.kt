@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.SurfaceView
+import android.view.View
 import android.view.WindowManager
 import android.webkit.URLUtil
 import android.widget.MediaController
@@ -32,7 +33,7 @@ import java.io.File
 import java.io.FileOutputStream
 
 
-class VideoUrl: AppCompatActivity() {
+class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2, Runnable {
     private val TAG = "OCVSampleFaceDetect"
     private var cameraBridgeViewBase: CameraBridgeViewBase? = null
 
@@ -90,7 +91,7 @@ class VideoUrl: AppCompatActivity() {
 
         infoFaces = findViewById(R.id.face)
         cameraBridgeViewBase = findViewById(R.id.main_surface)
-        
+
         //creates onclick listener for button
         returnToCourseSelect.setVisibility(View.INVISIBLE)
         returnToCourseSelect.setOnClickListener {
@@ -104,6 +105,11 @@ class VideoUrl: AppCompatActivity() {
             }
             finishAffinity()
         }
+
+        loadHaarCascadeFile()
+        checkPermissions()
+        initializePlayer()
+
 
         if (savedInstanceState != null) {
             mCurrentPosition =
@@ -168,6 +174,7 @@ class VideoUrl: AppCompatActivity() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             VideoView_URL.pause()
         }
+        disableCamera()
     }
 
     override fun onStop() {
@@ -235,5 +242,122 @@ class VideoUrl: AppCompatActivity() {
                         "/raw/" + mediaName
             )
         }
+    }
+
+    open fun checkPermissions() {
+        if (isPermissionGranted()) {
+            loadCameraBridge()
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(permission.CAMERA), 1)
+        }
+    }
+
+    open fun isPermissionGranted(): Boolean {
+        return ActivityCompat.checkSelfPermission(this, permission.CAMERA) === PERMISSION_GRANTED
+    }
+
+    internal open fun onRequestPermissionsResult(
+        requestCode: Int,
+        @NonNull permissions: Array<String?>?,
+        @NonNull grantResults: IntArray?
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions!!, grantResults!!)
+        checkPermissions()
+    }
+
+    open fun loadCameraBridge() {
+        cameraBridgeViewBase!!.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT)
+        cameraBridgeViewBase!!.visibility = SurfaceView.VISIBLE
+        cameraBridgeViewBase!!.setCvCameraViewListener(this)
+    }
+
+    open fun loadHaarCascadeFile() {
+        try {
+            val cascadeDir = getDir("haarcascade_frontalface_alt", MODE_PRIVATE)
+            mCascadeFile = File(cascadeDir, "haarcascade_frontalface_alt.xml")
+            if (!mCascadeFile!!.exists()) {
+                val os = FileOutputStream(mCascadeFile)
+                val `is` = resources.openRawResource(R.raw.haarcascade_frontalface_alt)
+                val buffer = ByteArray(4096)
+                var bytesRead: Int
+                while (`is`.read(buffer).also { bytesRead = it } != -1) {
+                    os.write(buffer, 0, bytesRead)
+                }
+                `is`.close()
+                os.close()
+            }
+        } catch (throwable: Throwable) {
+            throw RuntimeException("Failed to load Haar Cascade file")
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isPermissionGranted()) return
+        resumeOCV()
+    }
+
+    open fun resumeOCV() {
+        if (OpenCVLoader.initDebug()) {
+            Log.d(TAG, "OpenCV library found inside package. Using it!")
+            baseLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS)
+        } else {
+            Log.d(TAG, "Internal OpenCV library not found. Using OpenCV Manager for initialization")
+            OpenCVLoader.initAsync(OPENCV_VERSION, this, baseLoaderCallback)
+        }
+        cascadeClassifier = CascadeClassifier(mCascadeFile!!.absolutePath)
+        cascadeClassifier!!.load(mCascadeFile!!.absolutePath)
+        startFaceDetect()
+    }
+
+    override fun onCameraFrame(inputFrame: CvCameraViewFrame): Mat? {
+        if (matTmpProcessingFace == null) {
+            matTmpProcessingFace = inputFrame.gray()
+        }
+        return inputFrame.rgba()
+    }
+
+
+    override fun onCameraViewStarted(width: Int, height: Int) {}
+
+    override fun onCameraViewStopped() {}
+
+
+    open fun startFaceDetect() {
+        if (running) return
+        Thread(this).start()
+    }
+
+    override fun run() {
+        running = true
+        while (running) {
+            try {
+                if (matTmpProcessingFace != null) {
+                    val matOfRect = MatOfRect()
+                    cascadeClassifier!!.detectMultiScale(matTmpProcessingFace, matOfRect)
+                    val newQtdFaces = matOfRect.toList().size
+                    if (qtdFaces != newQtdFaces) {
+                        qtdFaces = newQtdFaces
+                        runOnUiThread {
+                            infoFaces!!.text =
+                                java.lang.String.format(getString(R.string.faces_detected), qtdFaces)
+                        }
+                    }
+                    Thread.sleep(500) //if you want an interval
+                    matTmpProcessingFace = null
+                }
+                Thread.sleep(50)
+            } catch (t: Throwable) {
+                try {
+                    Thread.sleep(10000)
+                } catch (tt: Throwable) {
+                }
+            }
+        }
+    }
+
+    open fun disableCamera() {
+        running = false
+        if (cameraBridgeViewBase != null) cameraBridgeViewBase!!.disableView()
     }
 }

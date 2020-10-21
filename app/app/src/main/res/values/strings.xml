@@ -27,6 +27,8 @@
 
     <string name="video_button">Video</string>
 
+    <string name="faces_detected">FACES: %d</string>
+
     <!-- menu item strings-->
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
