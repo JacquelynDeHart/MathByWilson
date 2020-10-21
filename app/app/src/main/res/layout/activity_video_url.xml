@@ -49,4 +49,18 @@
         android:textSize="18sp"
         tools:visibility="gone" />
 
+    <org.opencv.android.JavaCameraView
+        android:id="@+id/main_surface"
+        android:layout_width="226dp"
+        android:layout_height="144dp" />
+
+    <TextView
+        android:id="@+id/face"
+        android:layout_width="203dp"
+        android:layout_height="74dp"
+        android:text="FACES: 0"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
 </LinearLayout>

@@ -2,19 +2,64 @@ package com.example.mathapp
 
 
 import android.content.Intent
+import kotlinx.android.synthetic.main.activity_video_url.*
+import android.Manifest.permission
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.View
+import android.util.Log
+import android.view.SurfaceView
+import android.view.WindowManager
 import android.webkit.URLUtil
 import android.widget.MediaController
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.VideoView
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_video_url.*
+import androidx.core.app.ActivityCompat
+import org.opencv.android.BaseLoaderCallback
+import org.opencv.android.CameraBridgeViewBase
+import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
+import org.opencv.android.LoaderCallbackInterface
+import org.opencv.android.OpenCVLoader
+import org.opencv.android.OpenCVLoader.OPENCV_VERSION
+import org.opencv.core.Mat
+import org.opencv.core.MatOfRect
+import org.opencv.objdetect.CascadeClassifier
+import java.io.File
+import java.io.FileOutputStream
+
 
 class VideoUrl: AppCompatActivity() {
+    private val TAG = "OCVSampleFaceDetect"
+    private var cameraBridgeViewBase: CameraBridgeViewBase? = null
+
+    private val baseLoaderCallback: BaseLoaderCallback = object : BaseLoaderCallback(this) {
+        override fun onManagerConnected(status: Int) {
+            if (status == SUCCESS) {
+                Log.i(TAG, "OpenCV loaded successfully")
+                cameraBridgeViewBase!!.enableView()
+            } else {
+                super.onManagerConnected(status)
+            }
+        }
+    }
+
+    @Volatile
+    private var running = false
+
+    @Volatile
+    private var qtdFaces = 0
+
+    @Volatile
+    private var matTmpProcessingFace: Mat? = null
+
+    private var cascadeClassifier: CascadeClassifier? = null
+    private var mCascadeFile: File? = null
+    private var infoFaces: TextView? = null
+
     private var video_link = ""
     private var url_code = -1
     private var activity_num = -1
@@ -27,6 +72,7 @@ class VideoUrl: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_video_url)
 
         //collect data from intent bundle
@@ -41,6 +87,10 @@ class VideoUrl: AppCompatActivity() {
         VideoView_URL = findViewById(R.id.videoview_url)
         loading_text = findViewById(R.id.loading_textview)
 
+
+        infoFaces = findViewById(R.id.face)
+        cameraBridgeViewBase = findViewById(R.id.main_surface)
+        
         //creates onclick listener for button
         returnToCourseSelect.setVisibility(View.INVISIBLE)
         returnToCourseSelect.setOnClickListener {
