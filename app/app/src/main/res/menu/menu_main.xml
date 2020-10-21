@@ -10,7 +10,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
-        android:title="About"
+        android:title="@string/action_about"
         android:orderInCategory="0"
         app:showAsAction="never"/>
     <item
@@ -23,5 +23,11 @@
         android:title="@string/action_logout"
         app:showAsAction="never"
         android:orderInCategory="100"/>
+    <item
+        android:id="@+id/action_exit"
+        android:title="@string/action_exit"
+        android:icon="@drawable/exit_button"
+        app:showAsAction="always"
+        />
 
 </menu>
