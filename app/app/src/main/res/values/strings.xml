@@ -82,6 +82,7 @@
 
     <!-- selection strings -->
     <string name="pick_course">Select a Course:</string>
+    <string name="return_video_select">Return to Video Selection</string>
 
 
 </resources>

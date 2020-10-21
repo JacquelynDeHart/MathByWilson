@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Calculus1"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@color/colorPrimary">
 
 
     <LinearLayout

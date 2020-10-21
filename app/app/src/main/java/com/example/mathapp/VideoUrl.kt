@@ -1,15 +1,18 @@
 package com.example.mathapp
 
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.webkit.URLUtil
 import android.widget.MediaController
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_video_url.*
 
 class VideoUrl: AppCompatActivity() {
     private var video_link = ""
@@ -26,13 +29,31 @@ class VideoUrl: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video_url)
 
+        //collect data from intent bundle
         url_code = intent.getIntExtra("urlCode", 0)
         activity_num = intent.getIntExtra("activity", 0)
 
+        //calls function to set values for the url based on the activity_num and url_code
+        //passed in the intent bundle
         setVideoUrlCode(url_code, activity_num)
 
+        //hooks in the videoView and textView
         VideoView_URL = findViewById(R.id.videoview_url)
         loading_text = findViewById(R.id.loading_textview)
+
+        //creates onclick listener for button
+        returnToCourseSelect.setVisibility(View.INVISIBLE)
+        returnToCourseSelect.setOnClickListener {
+            //return user to previous course activity based on the activity_num
+            when(activity_num){
+                1 ->{startActivity(Intent(this, CollegeAlgebra::class.java))}
+                2 ->{startActivity(Intent(this, Calculus1::class.java))}
+                3 ->{startActivity(Intent(this, Calculus2::class.java))}
+
+                else -> startActivity(Intent(this, CourseSelection::class.java))
+            }
+            finishAffinity()
+        }
 
         if (savedInstanceState != null) {
             mCurrentPosition =
@@ -144,6 +165,8 @@ class VideoUrl: AppCompatActivity() {
 
             // Return the video position to the start.
             VideoView_URL.seekTo(0)
+            //show return to video selection button
+            returnToCourseSelect.setVisibility(View.VISIBLE)
         }
     }
 
