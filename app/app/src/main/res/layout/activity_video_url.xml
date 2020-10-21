@@ -51,8 +51,8 @@
 
     <org.opencv.android.JavaCameraView
         android:id="@+id/main_surface"
-        android:layout_width="226dp"
-        android:layout_height="144dp" />
+        android:layout_width="198dp"
+        android:layout_height="250dp" />
 
     <TextView
         android:id="@+id/face"
