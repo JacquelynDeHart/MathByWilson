@@ -3,6 +3,7 @@ package org.opencv.android;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.ImageFormat;
@@ -112,7 +113,7 @@ public class JavaCamera2View extends CameraBridgeViewBase {
                 manager.openCamera(mCameraID, mStateCallback, mBackgroundHandler);
             }
             return true;
-        } catch (CameraAccessException e) {
+        } catch (@SuppressLint("NewApi") CameraAccessException e) {
             Log.e(LOGTAG, "OpenCamera - Camera Access Exception", e);
         } catch (IllegalArgumentException e) {
             Log.e(LOGTAG, "OpenCamera - Illegal Argument Exception", e);
@@ -222,7 +223,7 @@ public class JavaCamera2View extends CameraBridgeViewBase {
                 },
                 null
             );
-        } catch (CameraAccessException e) {
+        } catch (@SuppressLint("NewApi") CameraAccessException e) {
             Log.e(LOGTAG, "createCameraPreviewSession", e);
         }
     }
@@ -281,7 +282,7 @@ public class JavaCamera2View extends CameraBridgeViewBase {
                 mPreviewSize = new android.util.Size(bestWidth, bestHeight);
                 return true;
             }
-        } catch (CameraAccessException e) {
+        } catch (@SuppressLint("NewApi") CameraAccessException e) {
             Log.e(LOGTAG, "calcPreviewSize - Camera Access Exception", e);
         } catch (IllegalArgumentException e) {
             Log.e(LOGTAG, "calcPreviewSize - Illegal Argument Exception", e);

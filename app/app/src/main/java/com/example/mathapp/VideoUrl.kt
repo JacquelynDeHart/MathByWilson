@@ -1,9 +1,8 @@
 package com.example.mathapp
 
 
-import android.content.Intent
-import kotlinx.android.synthetic.main.activity_video_url.*
 import android.Manifest.permission
+import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.Uri
 import android.os.Build
@@ -20,14 +19,17 @@ import android.widget.VideoView
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import kotlinx.android.synthetic.main.activity_video_url.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.android.LoaderCallbackInterface
 import org.opencv.android.OpenCVLoader
 import org.opencv.android.OpenCVLoader.OPENCV_VERSION
+import org.opencv.core.Core
 import org.opencv.core.Mat
 import org.opencv.core.MatOfRect
+import org.opencv.imgproc.Imgproc
 import org.opencv.objdetect.CascadeClassifier
 import java.io.File
 import java.io.FileOutputStream
@@ -50,6 +52,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
 
     @Volatile
     private var running = false
+
 
     @Volatile
     private var qtdFaces = 0
@@ -97,9 +100,15 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         returnToCourseSelect.setOnClickListener {
             //return user to previous course activity based on the activity_num
             when(activity_num){
-                1 ->{startActivity(Intent(this, CollegeAlgebra::class.java))}
-                2 ->{startActivity(Intent(this, Calculus1::class.java))}
-                3 ->{startActivity(Intent(this, Calculus2::class.java))}
+                1 -> {
+                    startActivity(Intent(this, CollegeAlgebra::class.java))
+                }
+                2 -> {
+                    startActivity(Intent(this, Calculus1::class.java))
+                }
+                3 -> {
+                    startActivity(Intent(this, Calculus2::class.java))
+                }
 
                 else -> startActivity(Intent(this, CourseSelection::class.java))
             }
@@ -126,39 +135,67 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
     private fun setVideoUrlCode(urlCode: Int, activity_num: Int) {
 
         when(activity_num){
-            1 -> when(url_code){
-                1 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Equ_Linear.mp4"
-                2 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Complex_Numb.mp4"
-                3 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Equ_Quad.mp4"
-                4 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/Applications_Quadratic.mp4"
-                5 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Eq_QuadInForm.mp4"
-                6 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Eq_Rational.mp4"
-                7 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Equ_Radical.mp4"
-                8 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Equ_Abs_Value.mp4"
-                9 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Inequalities.mp4"
-                10 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Inequalities_Abs_Value.mp4"
-                11 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Rect_Coord_Sys.mp4"
-                12 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Circles.mp4"
-                13 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/FUN_Domain.mp4"
-                14 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-FUN_Range.mp4"
+            1 -> when (url_code) {
+                1 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Equ_Linear.mp4"
+                2 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Complex_Numb.mp4"
+                3 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Equ_Quad.mp4"
+                4 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/08/Applications_Quadratic.mp4"
+                5 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/08/CA-Eq_QuadInForm.mp4"
+                6 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Eq_Rational.mp4"
+                7 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Equ_Radical.mp4"
+                8 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Equ_Abs_Value.mp4"
+                9 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Inequalities.mp4"
+                10 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Inequalities_Abs_Value.mp4"
+                11 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Rect_Coord_Sys.mp4"
+                12 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-Circles.mp4"
+                13 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/FUN_Domain.mp4"
+                14 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/CA-FUN_Range.mp4"
             }
-            2 -> when(url_code){
-                1 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/C1-FUN_Lim_Quest.mp4"
-                2 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/C1-FUN_Limit_Graphs.mp4"
-                3 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/C1_Lim_Fin_2sided.mp4"
-                4 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/C2-Finite-1-sided-Limits.mp4"
-                5 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/08/C1-Continuity.mp4"
-                6 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Infinite-2-1-sided-Limits.mp4"
-                7 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Finite_Limits_at_Infinity.mp4"
-                8 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Infinite_Limits_at_Infinity.mp4"
-                9 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Intro.mp4"
-                10 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/Der_Specific.mp4"
-                11 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Generic_01.mp4"
-                12 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Generic_02.mp4"
-                13 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Intro_02.mp4"
+            2 -> when (url_code) {
+                1 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/08/C1-FUN_Lim_Quest.mp4"
+                2 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/08/C1-FUN_Limit_Graphs.mp4"
+                3 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/08/C1_Lim_Fin_2sided.mp4"
+                4 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/08/C2-Finite-1-sided-Limits.mp4"
+                5 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/08/C1-Continuity.mp4"
+                6 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Infinite-2-1-sided-Limits.mp4"
+                7 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Finite_Limits_at_Infinity.mp4"
+                8 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Infinite_Limits_at_Infinity.mp4"
+                9 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Intro.mp4"
+                10 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/Der_Specific.mp4"
+                11 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Generic_01.mp4"
+                12 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Generic_02.mp4"
+                13 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/09/C1-Der_Intro_02.mp4"
             }
-            3 -> when(url_code){
-                1 -> video_link="http://www.mathbywilson.com/wp-content/uploads/2020/06/zoom_Position_PLUS.mp4"
+            3 -> when (url_code) {
+                1 -> video_link =
+                    "http://www.mathbywilson.com/wp-content/uploads/2020/06/zoom_Position_PLUS.mp4"
             }
         }
 
@@ -238,9 +275,9 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         } else {
 
              Uri.parse(
-                "android.resource://" + packageName +
-                        "/raw/" + mediaName
-            )
+                 "android.resource://" + packageName +
+                         "/raw/" + mediaName
+             )
         }
     }
 
@@ -310,6 +347,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         startFaceDetect()
     }
 
+
     override fun onCameraFrame(inputFrame: CvCameraViewFrame): Mat? {
         if (matTmpProcessingFace == null) {
             matTmpProcessingFace = inputFrame.gray()
@@ -340,7 +378,10 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
                         qtdFaces = newQtdFaces
                         runOnUiThread {
                             infoFaces!!.text =
-                                java.lang.String.format(getString(R.string.faces_detected), qtdFaces)
+                                java.lang.String.format(
+                                    getString(R.string.faces_detected),
+                                    qtdFaces
+                                )
                         }
                     }
                     Thread.sleep(500) //if you want an interval

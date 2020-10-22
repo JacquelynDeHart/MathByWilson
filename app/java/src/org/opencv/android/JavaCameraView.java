@@ -216,8 +216,9 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
                     Log.d(TAG, "startPreview");
 
                     /*Added in Screen Orientation*/
-                    setDisplayOrientation(mCamera, 90);
-                    mCamera.setPreviewDisplay(getHolder());
+//                    setDisplayOrientation(mCamera, 90);
+//                    mCamera.setPreviewDisplay(getHolder());
+
                     mCamera.startPreview();
                 }
                 else
@@ -231,20 +232,21 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
         return result;
     }
 
+
     /*Display new orientation*/
-    protected void setDisplayOrientation(Camera camera, int angle){
-        Method downPolymorphic;
-        try
-        {
-            downPolymorphic = camera.getClass().getMethod("setDisplayOrientation", new Class[] { int.class });
-            if (downPolymorphic != null)
-                ((Method) downPolymorphic).invoke(camera, new Object[] { angle });
-        }
-        catch (Exception e1)
-        {
-            e1.printStackTrace();
-        }
-    }
+//    protected void setDisplayOrientation(Camera camera, int angle){
+//        Method downPolymorphic;
+//        try
+//        {
+//            downPolymorphic = camera.getClass().getMethod("setDisplayOrientation", new Class[] { int.class });
+//            if (downPolymorphic != null)
+//                ((Method) downPolymorphic).invoke(camera, new Object[] { angle });
+//        }
+//        catch (Exception e1)
+//        {
+//            e1.printStackTrace();
+//        }
+//    }
 
     protected void releaseCamera() {
         synchronized (this) {
@@ -392,6 +394,7 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
                     if (!mFrameChain[1 - mChainIdx].empty())
                         deliverAndDrawFrame(mCameraFrame[1 - mChainIdx]);
                 }
+
             } while (!mStopThread);
             Log.d(TAG, "Finish processing thread");
         }
