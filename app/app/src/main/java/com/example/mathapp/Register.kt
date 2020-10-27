@@ -34,8 +34,10 @@ class Register : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
     private fun passCheck(a: String, b:String){
+        if(a.length <6)
+            Toast.makeText(this, "Password must be longer than 6 characters", Toast.LENGTH_SHORT).show()
         if(!a.equals(b)){
-            Toast.makeText(this, "password not the same", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Password not the same", Toast.LENGTH_SHORT).show()
             first_pass.requestFocus()
             return
         }
