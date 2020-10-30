@@ -41,7 +41,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".VideoUrl"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".SplashScreen"
             android:label="@string/app_name"
