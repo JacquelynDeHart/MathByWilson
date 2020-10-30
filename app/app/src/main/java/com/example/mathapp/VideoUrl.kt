@@ -82,6 +82,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
     //create trackingAlgorithm object from appropriate class
     val trackAlgo:TrackingAlgorithm = TrackingAlgorithm()
     val act = trackAlgo.actualTimeWatched
+    var timeTrack: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -263,6 +264,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
 
             // Start playing!
             VideoView_URL.start()
+            timeTrack= trackAlgo.watching(mCurrentPosition)
         }
 
 
@@ -273,11 +275,12 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
             ).show()
             Log.i("mCurrentPosition", ""+mCurrentPosition)
             Log.i("actualTimeWatched", ""+trackAlgo.actualTimeWatched)
-            if(trackAlgo.isVideoComplete(act, mCurrentPosition.toLong())==true){
+            Log.i("timeTrackedByWatching", ""+timeTrack)
+            if(trackAlgo.isVideoComplete(act, timeTrack)){
                 Log.i("userCompletedVideo", "Video was completed with acceptable ratio")
                 pushUserData(user, trackAlgo.compDecimal, video_link)
             }
-            if(trackAlgo.isVideoComplete(act, mCurrentPosition.toLong())==false){
+            if(!trackAlgo.isVideoComplete(act, timeTrack)){
                 Log.i("userCompletedVideo", "Video was not completed with acceptable percentage")
                 pushUserData(user, trackAlgo.compDecimal, video_link)
         }
