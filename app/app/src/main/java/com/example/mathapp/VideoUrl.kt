@@ -20,7 +20,6 @@ import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuth.getInstance
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -31,10 +30,8 @@ import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame
 import org.opencv.android.LoaderCallbackInterface
 import org.opencv.android.OpenCVLoader
 import org.opencv.android.OpenCVLoader.OPENCV_VERSION
-import org.opencv.core.Core
 import org.opencv.core.Mat
 import org.opencv.core.MatOfRect
-import org.opencv.imgproc.Imgproc
 import org.opencv.objdetect.CascadeClassifier
 import java.io.File
 import java.io.FileOutputStream
@@ -256,7 +253,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         VideoView_URL.setOnPreparedListener {
             loading_text.visibility = VideoView.INVISIBLE
 
-
+            Log.i("playbackTime", ""+PLAYBACK_TIME)
             if (mCurrentPosition > 0) {
                 VideoView_URL.seekTo(mCurrentPosition)
             } else {
@@ -271,11 +268,19 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
 
         VideoView_URL.setOnCompletionListener {
             Toast.makeText(
-                this,
-                R.string.toast_message,
+                this, R.string.toast_message,
                 Toast.LENGTH_SHORT
             ).show()
-            trackAlgo.isVideoComplete(act, mCurrentPosition.toLong())
+            Log.i("mCurrentPosition", ""+mCurrentPosition)
+            Log.i("actualTimeWatched", ""+trackAlgo.actualTimeWatched)
+            if(trackAlgo.isVideoComplete(act, mCurrentPosition.toLong())==true){
+                Log.i("userCompletedVideo", "Video was completed with acceptable ratio")
+                pushUserData(user, trackAlgo.compDecimal, video_link)
+            }
+            if(trackAlgo.isVideoComplete(act, mCurrentPosition.toLong())==false){
+                Log.i("userCompletedVideo", "Video was not completed with acceptable percentage")
+                pushUserData(user, trackAlgo.compDecimal, video_link)
+        }
             // Return the video position to the start.
             VideoView_URL.seekTo(0)
             //show return to video selection button
@@ -427,6 +432,14 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         auth = FirebaseAuth.getInstance()
         database= FirebaseDatabase.getInstance()
         currentUser = auth.currentUser!!
-        user=FirebaseDatabase.getInstance().getReference("Users/$currentUser")
+        user=FirebaseDatabase.getInstance().getReference("Users/")
+    }
+    /*
+    accepts the database uid for current user, completion percentage, and the video being watched.
+    will create a node in the database for the videos watched and will store the video name with the
+    completion percentage under that node.
+     */
+    fun pushUserData(user: DatabaseReference, compDecimal: Double, video_link: String) {
+
     }
 }
