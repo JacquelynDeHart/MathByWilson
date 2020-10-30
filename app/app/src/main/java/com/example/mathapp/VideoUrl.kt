@@ -42,6 +42,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
     private var cameraBridgeViewBase: CameraBridgeViewBase? = null
     lateinit var database: FirebaseDatabase
     lateinit var user: DatabaseReference
+    private val playTimeCurrent: Long = 0
 
     private val baseLoaderCallback: BaseLoaderCallback = object : BaseLoaderCallback(this) {
         override fun onManagerConnected(status: Int) {
@@ -136,7 +137,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         VideoView_URL.setMediaController(controller)
     }
     /*
-    method for dynamically setting url for video_link
+    method for dynamically setting url for video_link based on button click
      */
     private fun setVideoUrlCode(urlCode: Int, activity_num: Int) {
 
@@ -222,12 +223,16 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
 
     override fun onStop() {
         super.onStop()
+
         releasePlayer()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
+        /*captures total playback time of video and current player position
+        and saves it
+         */
         outState.putInt(
             PLAYBACK_TIME, VideoView_URL.currentPosition
         )
