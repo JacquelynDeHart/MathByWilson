@@ -275,7 +275,13 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
                 R.string.toast_message,
                 Toast.LENGTH_SHORT
             ).show()
-            trackAlgo.isVideoComplete(act, mCurrentPosition.toLong())
+            if(trackAlgo.isVideoComplete(act, mCurrentPosition.toLong())==true){
+                Log.i("userCompletedVideo", "Video was completed with acceptable ratio")
+                pushUserData()
+            }
+            if(trackAlgo.isVideoComplete(act, mCurrentPosition.toLong())==false){
+                Log.i("userCompletedVide", "Video was not completed with acceptable percentage")
+        }
             // Return the video position to the start.
             VideoView_URL.seekTo(0)
             //show return to video selection button
@@ -428,5 +434,11 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         database= FirebaseDatabase.getInstance()
         currentUser = auth.currentUser!!
         user=FirebaseDatabase.getInstance().getReference("Users/$currentUser")
+    }
+    /*
+
+     */
+    fun pushUserData(){
+
     }
 }
