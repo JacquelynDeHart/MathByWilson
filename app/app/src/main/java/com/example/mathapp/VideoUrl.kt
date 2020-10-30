@@ -223,6 +223,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             VideoView_URL.pause()
         }
+        /* Pause video when user is not looking */
         disableCamera()
     }
 
@@ -411,7 +412,12 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
                     Thread.sleep(500) //if you want an interval
                     matTmpProcessingFace = null
                 }
+
                 Thread.sleep(50)
+
+                //Checks if user is currently watching video
+                trackActivity()
+
             } catch (t: Throwable) {
                 try {
                     Thread.sleep(10000)
@@ -419,6 +425,22 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
                 }
             }
         }
+    }
+
+    /*
+        Checks if face is seen or not. Pauses after 5 seconds on not watching video.
+     */
+
+    private fun trackActivity(){
+        if (qtdFaces == 0)
+        {
+            Thread.sleep(5000)
+            VideoView_URL.pause()
+        }
+        else {
+            VideoView_URL.start()
+        }
+
     }
 
     open fun disableCamera() {
