@@ -19,6 +19,9 @@ import android.widget.VideoView
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.getInstance
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_video_url.*
@@ -40,9 +43,6 @@ import java.io.FileOutputStream
 class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2, Runnable {
     private val TAG = "OCVSampleFaceDetect"
     private var cameraBridgeViewBase: CameraBridgeViewBase? = null
-    lateinit var database: FirebaseDatabase
-    lateinit var user: DatabaseReference
-    private val playTimeCurrent: Long = 0
 
     private val baseLoaderCallback: BaseLoaderCallback = object : BaseLoaderCallback(this) {
         override fun onManagerConnected(status: Int) {
@@ -57,11 +57,8 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
 
     @Volatile
     private var running = false
-
-
     @Volatile
     private var qtdFaces = 0
-
     @Volatile
     private var matTmpProcessingFace: Mat? = null
 
@@ -79,10 +76,23 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
 
     private val PLAYBACK_TIME = "play_time"
 
+    //firebase and user var/val
+    lateinit var database: FirebaseDatabase
+    lateinit var user: DatabaseReference
+    lateinit var currentUser: FirebaseUser
+    private lateinit var auth: FirebaseAuth
+    private val playTimeCurrent: Long = 0
+    //create trackingAlgorithm object from appropriate class
+    val trackAlgo:TrackingAlgorithm = TrackingAlgorithm()
+    val act = trackAlgo.actualTimeWatched
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        database= FirebaseDatabase.getInstance()
-        //user=DatabaseReference.getReference()
+        //call method to instantiate db vars
+        dbInstance()
+
+
+        //set up window elements
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_video_url)
 
@@ -97,8 +107,6 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         //hooks in the videoView and textView
         VideoView_URL = findViewById(R.id.videoview_url)
         loading_text = findViewById(R.id.loading_textview)
-
-
         infoFaces = findViewById(R.id.face)
         cameraBridgeViewBase = findViewById(R.id.main_surface)
 
@@ -267,7 +275,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
                 R.string.toast_message,
                 Toast.LENGTH_SHORT
             ).show()
-
+            trackAlgo.isVideoComplete(act, mCurrentPosition.toLong())
             // Return the video position to the start.
             VideoView_URL.seekTo(0)
             //show return to video selection button
@@ -411,5 +419,14 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
     open fun disableCamera() {
         running = false
         if (cameraBridgeViewBase != null) cameraBridgeViewBase!!.disableView()
+    }
+    /*
+        sets up firebase db and user variables to push data to later
+         */
+    fun dbInstance(){
+        auth = FirebaseAuth.getInstance()
+        database= FirebaseDatabase.getInstance()
+        currentUser = auth.currentUser!!
+        user=FirebaseDatabase.getInstance().getReference("Users/$currentUser")
     }
 }
