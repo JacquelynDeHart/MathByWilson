@@ -34,8 +34,10 @@ class Register : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
     private fun passCheck(a: String, b:String){
+        if(a.length <6)
+            Toast.makeText(this, "Password must be longer than 6 characters", Toast.LENGTH_SHORT).show()
         if(!a.equals(b)){
-            Toast.makeText(this, "password not the same", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Password not the same", Toast.LENGTH_SHORT).show()
             first_pass.requestFocus()
             return
         }
@@ -72,7 +74,7 @@ class Register : AppCompatActivity() {
         }
         passCheck(first_pass.text.toString(), second_pass.text.toString())
         val rbtnId: Int = radioGroup.checkedRadioButtonId
-        var prof: Int = rbtnAssign(rbtnId)
+        val prof: Byte = rbtnAssign(rbtnId)
 
         auth.createUserWithEmailAndPassword(new_user.text.toString(), first_pass.text.toString())
             .addOnCompleteListener(this) { task ->
@@ -99,8 +101,8 @@ class Register : AppCompatActivity() {
             }
     }
 
-    private fun rbtnAssign(rbtnId: Int): Int {
-        var id: Int = 0
+    private fun rbtnAssign(rbtnId: Int): Byte {
+        var id: Byte = 0
         when(rbtnId){
             rbtn_wilson.id ->  id =1;
             rbtn_not_wilson.id -> id =2;
@@ -109,7 +111,7 @@ class Register : AppCompatActivity() {
 
     }
 
-    private fun addToDatabase(email: String, fName: String, lName: String, prof: Int) {
+    private fun addToDatabase(email: String, fName: String, lName: String, prof: Byte) {
         val user = User(email, fName, lName, prof)
 
         val ref: String? = database.push().key
