@@ -19,6 +19,8 @@ import android.widget.VideoView
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_video_url.*
 import org.opencv.android.BaseLoaderCallback
 import org.opencv.android.CameraBridgeViewBase
@@ -38,6 +40,8 @@ import java.io.FileOutputStream
 class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2, Runnable {
     private val TAG = "OCVSampleFaceDetect"
     private var cameraBridgeViewBase: CameraBridgeViewBase? = null
+    lateinit var database: FirebaseDatabase
+    lateinit var user: DatabaseReference
 
     private val baseLoaderCallback: BaseLoaderCallback = object : BaseLoaderCallback(this) {
         override fun onManagerConnected(status: Int) {
@@ -76,6 +80,8 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        database= FirebaseDatabase.getInstance()
+        //user=DatabaseReference.getReference()
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_video_url)
 
