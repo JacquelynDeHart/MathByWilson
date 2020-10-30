@@ -223,7 +223,6 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             VideoView_URL.pause()
         }
-        /* Pause video when user is not looking */
         disableCamera()
     }
 

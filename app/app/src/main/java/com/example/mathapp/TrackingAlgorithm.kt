@@ -21,7 +21,7 @@ class TrackingAlgorithm() {
         when(timer){
             in 0..2100->{
                 android.os.Handler().postDelayed({
-                    incrememntTime()
+                    incrementTime()
                 }, 1000)
             }
             !in 0..2100->{
@@ -57,7 +57,7 @@ class TrackingAlgorithm() {
         return findIfTrue
     }
 
-    private fun incrememntTime(){
+    private fun incrementTime(){
         actualTimeWatched += 1
 
     }
