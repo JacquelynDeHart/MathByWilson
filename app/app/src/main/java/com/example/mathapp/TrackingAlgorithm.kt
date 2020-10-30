@@ -41,10 +41,10 @@ class TrackingAlgorithm() {
      */
     fun isVideoComplete(act: Long, playTime: Long): Boolean {
         var findIfTrue: Boolean = false
-        if(act == playTime){
+        /*if(act == playTime){
             sendCompletion(1.0)
             findIfTrue = true
-        }
+        }*/
         if(act< playTime){
             if((act/playTime)>.95){
                 sendCompletion(((act/playTime).toDouble()))

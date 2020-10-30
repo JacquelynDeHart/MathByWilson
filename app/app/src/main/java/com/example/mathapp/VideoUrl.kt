@@ -253,7 +253,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         VideoView_URL.setOnPreparedListener {
             loading_text.visibility = VideoView.INVISIBLE
 
-
+            Log.i("playbackTime", ""+PLAYBACK_TIME)
             if (mCurrentPosition > 0) {
                 VideoView_URL.seekTo(mCurrentPosition)
             } else {
@@ -268,16 +268,17 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
 
         VideoView_URL.setOnCompletionListener {
             Toast.makeText(
-                this,
-                R.string.toast_message,
+                this, R.string.toast_message,
                 Toast.LENGTH_SHORT
             ).show()
+            Log.i("mCurrentPosition", ""+mCurrentPosition)
+            Log.i("actualTimeWatched", ""+trackAlgo.actualTimeWatched)
             if(trackAlgo.isVideoComplete(act, mCurrentPosition.toLong())==true){
                 Log.i("userCompletedVideo", "Video was completed with acceptable ratio")
                 pushUserData(user, trackAlgo.compDecimal, video_link)
             }
             if(trackAlgo.isVideoComplete(act, mCurrentPosition.toLong())==false){
-                Log.i("userCompletedVide", "Video was not completed with acceptable percentage")
+                Log.i("userCompletedVideo", "Video was not completed with acceptable percentage")
                 pushUserData(user, trackAlgo.compDecimal, video_link)
         }
             // Return the video position to the start.
@@ -431,7 +432,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         auth = FirebaseAuth.getInstance()
         database= FirebaseDatabase.getInstance()
         currentUser = auth.currentUser!!
-        user=FirebaseDatabase.getInstance().getReference("Users/$currentUser")
+        user=FirebaseDatabase.getInstance().getReference("Users/")
     }
     /*
     accepts the database uid for current user, completion percentage, and the video being watched.
