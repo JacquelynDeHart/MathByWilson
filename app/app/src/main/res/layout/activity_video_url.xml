@@ -33,6 +33,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.44" />
+
+        <Button
+            android:id="@+id/returnToCourseSelect"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="230dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="422dp"
+            android:layout_marginBottom="100dp"
+            android:text="@string/return_video_select"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/face"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="invisible" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <VideoView
@@ -60,20 +77,6 @@
             app:layout_constraintHorizontal_bias="0.321"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/videoview_url" />
-
-        <Button
-            android:id="@+id/returnToCourseSelect"
-            style="?attr/materialButtonOutlinedStyle"
-            android:layout_width="1dp"
-            android:layout_height="33dp"
-            android:text="@string/return_video_select"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
 
     <org.opencv.android.JavaCameraView
         android:id="@+id/main_surface"
