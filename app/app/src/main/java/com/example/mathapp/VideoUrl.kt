@@ -7,6 +7,8 @@ import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.SurfaceView
 import android.view.View
@@ -80,9 +82,20 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
     private lateinit var auth: FirebaseAuth
     private val playTimeCurrent: Long = 0
     //create trackingAlgorithm object from appropriate class
-    val trackAlgo:TrackingAlgorithm = TrackingAlgorithm()
-    var act = trackAlgo.actualTimeWatched
+    //val trackAlgo:TrackingAlgorithm = TrackingAlgorithm()
+    //var act = trackAlgo.actualTimeWatched
     var timeTrack: Long = 0
+
+    var actualTimeWatched: Long = 0
+    var compDecimal: Double = 0.0
+    lateinit var mainHandler: Handler
+
+    private val updateTimeWatched = object: Runnable{
+        override fun run(){
+            watching()
+            mainHandler.postDelayed(this, 10000)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -141,6 +154,8 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
        val controller = MediaController(this)
         controller.setMediaPlayer(VideoView_URL)
         VideoView_URL.setMediaController(controller)
+
+        mainHandler = Handler(Looper.getMainLooper())
     }
     /*
     method for dynamically setting url for video_link based on button click
@@ -217,6 +232,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
     override fun onStart() {
         super.onStart()
         initializePlayer()
+        updateTimeWatched.run()
     }
 
     override fun onPause() {
@@ -225,12 +241,12 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
             VideoView_URL.pause()
         }
         disableCamera()
-        trackAlgo.onVideoPause()    //remove handler callbacks
+        mainHandler.removeCallbacks(updateTimeWatched)    //remove handler callbacks
     }
 
     override fun onStop() {
         super.onStop()
-        trackAlgo.onVideoPause()    //remove handler callbacks
+        mainHandler.removeCallbacks(updateTimeWatched)    //remove handler callbacks
         releasePlayer()
     }
 
@@ -266,26 +282,26 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
 
             // Start playing!
             VideoView_URL.start()
-            timeTrack= trackAlgo.watching(mCurrentPosition)
+
         }
 
 
         VideoView_URL.setOnCompletionListener {
             timeTrack= (VideoView_URL.currentPosition).toLong()
-            act = trackAlgo.actualTimeWatched
+            //act = actualTimeWatched
             Toast.makeText(
                 this, R.string.toast_message,
                 Toast.LENGTH_SHORT
             ).show()
-            Log.i("actualTimeWatched", ""+trackAlgo.actualTimeWatched)
+            Log.i("actualTimeWatched", ""+actualTimeWatched)
             Log.i("playbackTimeInMilliS", ""+timeTrack)
-            if(trackAlgo.isVideoComplete(act, timeTrack)){
+            if(isVideoComplete(actualTimeWatched, (timeTrack/1000))){
                 Log.i("userCompletedVideo", "Video was completed with acceptable ratio")
-                pushUserData(user, trackAlgo.compDecimal, video_link)
+                pushUserData(user, compDecimal, video_link)
             }
-            if(!trackAlgo.isVideoComplete(act, timeTrack)){
+            if(!isVideoComplete(actualTimeWatched, (timeTrack/1000))){
                 Log.i("userCompletedVideo", "Video was not completed with acceptable percentage")
-                pushUserData(user, trackAlgo.compDecimal, video_link)
+                pushUserData(user, compDecimal, video_link)
         }
             // Return the video position to the start.
             VideoView_URL.seekTo(0)
@@ -362,7 +378,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         super.onResume()
         if (!isPermissionGranted()) return
         resumeOCV()
-        trackAlgo.onVideoResume()
+        mainHandler.post(updateTimeWatched)
     }
 
     open fun resumeOCV() {
@@ -442,11 +458,10 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         {
             Thread.sleep(5000)
             VideoView_URL.pause()
-            trackAlgo.onVideoPause()
         }
         else {
             VideoView_URL.start()
-            trackAlgo.onVideoResume()
+            mainHandler.post(updateTimeWatched)
         }
 
     }
@@ -471,5 +486,54 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
      */
     fun pushUserData(user: DatabaseReference, compDecimal: Double, video_link: String) {
 
+    }
+
+
+    /*
+    test for video completion.
+    when playback of video ceases, take final value actualTimeWatched and playback time of
+    video. compare both times. if final timer value is within 5% of playback time, send
+    to Firebase database video name and completion value (1). else, send video name and completion percentage
+    value (decimal)
+     */
+    fun isVideoComplete(act: Long, playTime: Long): Boolean {
+        var findIfTrue: Boolean = false
+        /*if(act == playTime){
+            sendCompletion(1.0)
+            findIfTrue = true
+        }*/
+        if(act< playTime){
+            if((act/playTime)>.95){
+                sendCompletion(((act/playTime).toDouble()))
+                findIfTrue = true
+            }
+            if((act/playTime)<.95){
+                findIfTrue = false
+            }
+        }
+        return findIfTrue
+    }
+
+    private fun incrementTime(){
+        actualTimeWatched += 1
+
+    }
+
+    private fun sendCompletion(l: Double) {
+        compDecimal = l
+    }
+
+    /*
+    accepts an initial time as integer.
+    while watching is true (based on results from opencv face detect)
+    if first occurrence of watching, begin keeping time with incrementTime()
+    return value of time watched
+     */
+    fun watching(): Long{
+        if(VideoView_URL.isPlaying){
+            incrementTime()
+            Log.i("incrementActualWatch",""+actualTimeWatched)
+        }
+        return actualTimeWatched
     }
 }
