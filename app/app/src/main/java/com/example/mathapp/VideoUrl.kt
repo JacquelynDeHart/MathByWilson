@@ -81,7 +81,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
     private val playTimeCurrent: Long = 0
     //create trackingAlgorithm object from appropriate class
     val trackAlgo:TrackingAlgorithm = TrackingAlgorithm()
-    val act = trackAlgo.actualTimeWatched
+    var act = trackAlgo.actualTimeWatched
     var timeTrack: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -225,11 +225,12 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
             VideoView_URL.pause()
         }
         disableCamera()
+        trackAlgo.onVideoPause()    //remove handler callbacks
     }
 
     override fun onStop() {
         super.onStop()
-
+        trackAlgo.onVideoPause()    //remove handler callbacks
         releasePlayer()
     }
 
@@ -254,9 +255,10 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         VideoView_URL.setOnPreparedListener {
             loading_text.visibility = VideoView.INVISIBLE
 
-            Log.i("playbackTime", ""+PLAYBACK_TIME)
+
             if (mCurrentPosition > 0) {
                 VideoView_URL.seekTo(mCurrentPosition)
+                Log.i("playbackTime", ""+PLAYBACK_TIME)
             } else {
                 // Skipping to 1 shows the first frame of the video.
                 VideoView_URL.seekTo(1)
@@ -269,13 +271,14 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
 
 
         VideoView_URL.setOnCompletionListener {
+            timeTrack= (VideoView_URL.currentPosition).toLong()
+            act = trackAlgo.actualTimeWatched
             Toast.makeText(
                 this, R.string.toast_message,
                 Toast.LENGTH_SHORT
             ).show()
-            Log.i("mCurrentPosition", ""+mCurrentPosition)
             Log.i("actualTimeWatched", ""+trackAlgo.actualTimeWatched)
-            Log.i("timeTrackedByWatching", ""+timeTrack)
+            Log.i("playbackTimeInMilliS", ""+timeTrack)
             if(trackAlgo.isVideoComplete(act, timeTrack)){
                 Log.i("userCompletedVideo", "Video was completed with acceptable ratio")
                 pushUserData(user, trackAlgo.compDecimal, video_link)
@@ -359,6 +362,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         super.onResume()
         if (!isPermissionGranted()) return
         resumeOCV()
+        trackAlgo.onVideoResume()
     }
 
     open fun resumeOCV() {
@@ -438,9 +442,11 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         {
             Thread.sleep(5000)
             VideoView_URL.pause()
+            trackAlgo.onVideoPause()
         }
         else {
             VideoView_URL.start()
+            trackAlgo.onVideoResume()
         }
 
     }

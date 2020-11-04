@@ -1,13 +1,31 @@
 package com.example.mathapp
 
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+
 class TrackingAlgorithm() {
     var actualTimeWatched: Long = 0
     var compDecimal: Double = 0.0
+    var mainHandler: Handler = Handler(Looper.getMainLooper())
     /*
     store current playback time, video in progress, current tracking value
      */
     fun onVideoPause(){
+        mainHandler.removeCallbacks(updateTimeWatched)
+    }
+    private var updateTimeWatched = object: Runnable{
+        override fun run(){
+            watching(actualTimeWatched.toInt())
+            mainHandler.postDelayed(this, 10000)
+        }
+    }
 
+    /*
+    onVideoResume starts running updateTimeWatched runnable
+     */
+    fun onVideoResume(){
+        mainHandler.post(updateTimeWatched)
     }
 
     /*
@@ -18,19 +36,22 @@ class TrackingAlgorithm() {
     return value of time watched
      */
     fun watching(timer: Int): Long{
-        when(timer){
-            in 0..2100->{
-                android.os.Handler().postDelayed({
-                    incrementTime()
-                }, 1000)
+        /*when(timer){
+            in 0..3900->{
+                incrementTime()
             }
-            !in 0..2100->{
-
+            !in 0..3900->{
+                Log.i("timeIncrement", "outside 3900 seconds")
             }
 
+        }*/
+        if(timer < 4900){
+            incrementTime()
+            Log.i("incrementActualWatch",""+actualTimeWatched)
         }
         return actualTimeWatched
     }
+
 
     /*
     test for video completion.
