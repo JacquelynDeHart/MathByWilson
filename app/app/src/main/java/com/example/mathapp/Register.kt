@@ -74,7 +74,7 @@ class Register : AppCompatActivity() {
         }
         passCheck(first_pass.text.toString(), second_pass.text.toString())
         val rbtnId: Int = radioGroup.checkedRadioButtonId
-        val prof: Byte = rbtnAssign(rbtnId)
+        val prof: Int = rbtnAssign(rbtnId)
 
         auth.createUserWithEmailAndPassword(new_user.text.toString(), first_pass.text.toString())
             .addOnCompleteListener(this) { task ->
@@ -101,8 +101,8 @@ class Register : AppCompatActivity() {
             }
     }
 
-    private fun rbtnAssign(rbtnId: Int): Byte {
-        var id: Byte = 0
+    private fun rbtnAssign(rbtnId: Int): Int {
+        var id: Int = 0
         when(rbtnId){
             rbtn_wilson.id ->  id =1;
             rbtn_not_wilson.id -> id =2;
@@ -111,7 +111,7 @@ class Register : AppCompatActivity() {
 
     }
 
-    private fun addToDatabase(email: String, fName: String, lName: String, prof: Byte) {
+    private fun addToDatabase(email: String, fName: String, lName: String, prof: Int) {
         val user = User(email, fName, lName, prof)
 
         val ref: String? = database.push().key
