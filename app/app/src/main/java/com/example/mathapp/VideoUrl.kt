@@ -450,13 +450,13 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
     }
 
     /*
-        Checks if face is seen or not. Pauses after 5 seconds on not watching video.
+        Checks if face is seen or not. Pauses after 3 seconds on not watching video.
      */
 
     private fun trackActivity(){
         if (qtdFaces == 0)
         {
-            Thread.sleep(5000)
+            Thread.sleep(3000)
             VideoView_URL.pause()
         }
         else {
