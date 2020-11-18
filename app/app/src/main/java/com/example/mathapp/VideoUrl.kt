@@ -503,11 +503,11 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
             findIfTrue = true
         }*/
         if(act< playTime){
-            if((act/playTime)>.95){
+            if((act/playTime)>.75){
                 sendCompletion(((act/playTime).toDouble()))
                 findIfTrue = true
             }
-            if((act/playTime)<.95){
+            if((act/playTime)<.75){
                 findIfTrue = false
             }
         }
