@@ -70,6 +70,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
     private var activity_num = -1
     lateinit var VideoView_URL: VideoView
     lateinit var loading_text: TextView
+    lateinit var ping_string: TextView
 
     private var mCurrentPosition = 0
 
@@ -118,6 +119,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         //hooks in the videoView and textView
         VideoView_URL = findViewById(R.id.videoview_url)
         loading_text = findViewById(R.id.loading_textview)
+        ping_string = findViewById(R.id.ping_string)
         infoFaces = findViewById(R.id.face)
         cameraBridgeViewBase = findViewById(R.id.main_surface)
 
@@ -458,6 +460,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
         {
             Thread.sleep(3000)
             VideoView_URL.pause()
+            ping_string.visibility = VideoView.VISIBLE
         }
         else {
             VideoView_URL.start()
