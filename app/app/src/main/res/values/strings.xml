@@ -41,7 +41,7 @@
     <string name="video2_button">URL Video</string>
     <string name="loading_string">Loading...</string>
     <string name="toast_message">Complete</string>
-    <string name="ping_string">You have to be watching the video for the video to play</string>
+    <string name="ping_string">You have to be watching for the video to play</string>
 
     <!-- course strings -->
     <string name="college_algebra">College Algebra</string>

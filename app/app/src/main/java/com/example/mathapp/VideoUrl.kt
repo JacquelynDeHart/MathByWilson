@@ -453,6 +453,7 @@ class VideoUrl: AppCompatActivity(), CameraBridgeViewBase.CvCameraViewListener2,
 
     /*
         Checks if face is seen or not. Pauses after 3 seconds on not watching video.
+        Ping message alert will become visible
      */
 
     private fun trackActivity(){
